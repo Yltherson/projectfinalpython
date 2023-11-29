@@ -1,3 +1,4 @@
+from database import connectiondb as con
 class User:
     fullName = ""
     age = ""
@@ -42,3 +43,13 @@ class User:
 
     def getFact(self):
         return self.fact
+
+
+    def saveU(self):
+        userData = (self.getFullName(), self.getAge(), self.getNumero(), self.getEmail(), self.getFact())
+        sql = "insert into etudiants(fullName, age, numero, email, fact) values(?, ?, ?, ?, ?)"
+        conect = con()
+        cur = conect.cursor()
+        cur.execute(sql, userData)
+
+        conect.commit()
